@@ -1,0 +1,225 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #e9e9e6;
+  font-family: var(--font-sheet);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  /* Stop iOS Safari from auto-inflating text, which overflowed the tight BPM/time inputs. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+* { box-sizing: border-box; }
+
+input, select, textarea, button {
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  min-width: 0;
+}
+input:focus, textarea:focus {
+  outline: none;
+  background: rgba(0, 120, 255, .08) !important;
+}
+.sl-name::placeholder { color: #bbb; }
+.num { font-family: var(--font-numbers) !important; }
+
+/* Force the browser to print background fills (color swatches, rainbow gradient)
+   without the user needing to tick "Background graphics" in the print dialog. */
+.sheet, .sheet * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Toolbar: UI font (site.config.ts), all caps */
+.toolbar,
+.toolbar button,
+.toolbar select,
+.toolbar span {
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+}
+
+/* Toolbar buttons */
+.tb-btn {
+  background: #111; color: #fff; border: 1px solid #555;
+  padding: 6px 10px; font-size: 12px; font-weight: 700; cursor: pointer;
+}
+.tb-btn:hover { background: #fff; color: #111; }
+.tb-btn.danger:hover { background: #e11; color: #fff; border-color: #e11; }
+.tb-select {
+  background: #111; color: #fff; border: 1px solid #555;
+  padding: 6px 8px; font-size: 13px; font-weight: 700; border-radius: 0;
+}
+.export-btn {
+  background: #fff; color: #111; border: 1px solid #fff;
+  padding: 7px 16px; font-size: 12px; font-weight: 800; cursor: pointer; letter-spacing: .02em;
+}
+.export-btn:hover { background: #19e3e3; border-color: #19e3e3; }
+.edit-btn {
+  background: #19e3e3; color: #111; border: 1px solid #19e3e3;
+  padding: 7px 16px; font-size: 12px; font-weight: 800; cursor: pointer; letter-spacing: .02em;
+}
+.edit-btn:hover { background: #fff; border-color: #fff; }
+
+/* Badge marking the setlist that "/" serves. */
+.tb-current {
+  border: 1px solid #19e3e3; color: #19e3e3; background: transparent;
+  padding: 6px 10px; font-size: 12px; font-weight: 700; white-space: nowrap;
+}
+
+/* Show/hide a sheet field (colours, bpm, …) on this setlist (and therefore the PDF). */
+.sl-toggle {
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  background: #fff; border: 1px solid #ccc; color: #999; cursor: pointer;
+  padding: 6px 10px; font-size: 12px; font-weight: 700;
+}
+.sl-toggle.on { border-color: #111; color: #111; }
+.sl-toggle:hover { border-color: #111; color: #111; }
+
+/* The setlist's own shareable URL, doubles as a copy-to-clipboard button. */
+.sl-link {
+  background: #fff; border: 1px solid #ccc; color: #666; cursor: pointer;
+  padding: 6px 10px; font-size: 12px; font-weight: 700; max-width: 40%;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.sl-link:hover { border-color: #111; color: #111; }
+
+/* Sheet controls */
+.add-btn {
+  margin: 18px 0 0 0; background: #fff; border: 1.5px dashed #bbb; color: #666;
+  padding: 9px 16px; font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: .02em;
+}
+.add-btn:hover { border-color: #000; color: #000; }
+.row-ctrl { opacity: .4; }
+.row-ctrl:hover { opacity: 1; }
+.row-del {
+  width: 26px; height: 30px; border: 2px solid #c00; background: #fff; cursor: pointer;
+  font-size: 14px; font-weight: 800; padding: 0; line-height: 1; color: #c00;
+}
+.row-ctrl-btn {
+  width: 26px; height: 30px; border: 1.5px solid #bbb; background: #fff; cursor: pointer;
+  padding: 0; line-height: 1; color: #444; display: inline-flex; align-items: center; justify-content: center;
+}
+.row-ctrl-btn:hover { border-color: #000; color: #000; }
+.color-opt {
+  display: flex; align-items: center; gap: 10px; background: #fff; border: none;
+  border-bottom: 1px solid #eee; padding: 8px 12px; cursor: pointer;
+}
+.color-opt:hover { background: #f2f2f2; }
+
+/* Auth modal */
+.modal-input {
+  width: 100%; border: 2px solid #000; padding: 10px 12px; font-size: 15px; font-weight: 700;
+  color: #111; background: #fff;
+}
+.modal-btn {
+  background: #111; color: #fff; border: 1px solid #111; padding: 10px 16px;
+  font-size: 13px; font-weight: 800; cursor: pointer; letter-spacing: .02em; text-transform: uppercase;
+}
+.modal-btn:hover { background: #19e3e3; color: #111; border-color: #19e3e3; }
+
+/* Screen: the wrapper is scaled to fit the phone width via inline `zoom` (set in JS). */
+.print-page { flex: 0 0 auto; }
+
+/* Mobile toolbar: tighten spacing so buttons don't overflow. */
+@media (max-width: 700px) {
+  .toolbar { gap: 8px !important; padding: 8px 12px !important; }
+  .toolbar > span:first-child { font-size: 13px !important; }
+  .sheet-scroll { padding: 12px 6px 60px !important; }
+
+  /* Read-only top bar stays on ONE line: drop the song count, shrink the buttons. */
+  .toolbar-view { flex-wrap: nowrap !important; gap: 8px !important; }
+  .toolbar-view .toolbar-status { display: none !important; }
+  .toolbar-view .edit-btn,
+  .toolbar-view .export-btn {
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+    white-space: nowrap;
+  }
+  .toolbar .theme-btn { padding: 6px !important; }
+}
+
+/* ===== DARK MODE =====
+   Screen only. Every rule below lives inside `@media screen`, so printing (and the
+   headless-Chromium PDF, which renders its own document anyway) is always the light
+   sheet regardless of what the toggle is set to. The overrides need !important because
+   the sheet's colors are inline styles on the elements themselves. */
+.theme-btn {
+  background: transparent; color: #fff; border: 1px solid #555;
+  padding: 6px 8px; cursor: pointer; line-height: 0; flex: 0 0 auto;
+}
+.theme-btn:hover { background: #fff; color: #111; border-color: #fff; }
+
+@media screen {
+  html[data-theme="dark"], html[data-theme="dark"] body { background: #17171a; }
+
+  html[data-theme="dark"] .sheet {
+    background: #0e0e10 !important;
+    border-color: #303036 !important;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, .55) !important;
+  }
+  html[data-theme="dark"] .sheet,
+  html[data-theme="dark"] .sheet * { color: #ededea !important; }
+  /* The wordmark and the energy curve are solid black artwork. */
+  html[data-theme="dark"] .sheet > img.invert-dark { filter: invert(1); }
+  html[data-theme="dark"] .sheet svg path { stroke: #ededea !important; }
+  /* Swatch outlines are #111 inline — invisible on a near-black sheet. */
+  html[data-theme="dark"] .swatch { border-color: #6b6b73 !important; }
+  html[data-theme="dark"] input:focus,
+  html[data-theme="dark"] textarea:focus { background: rgba(80, 170, 255, .16) !important; }
+
+  /* In-sheet controls (editor only). */
+  html[data-theme="dark"] .color-menu { background: #1b1b1f !important; border-color: #ededea !important; }
+  html[data-theme="dark"] .color-opt { background: #1b1b1f; border-bottom-color: #2c2c33; }
+  html[data-theme="dark"] .color-opt:hover { background: #2a2a31; }
+  html[data-theme="dark"] .row-ctrl-btn { background: #1b1b1f; border-color: #4a4a52; color: #ccc; }
+  html[data-theme="dark"] .row-ctrl-btn:hover { border-color: #ededea; color: #fff; }
+  html[data-theme="dark"] .row-del { background: #1b1b1f; }
+  html[data-theme="dark"] .add-btn { background: #1b1b1f; border-color: #4a4a52; color: #aaa; }
+  html[data-theme="dark"] .add-btn:hover { border-color: #ededea; color: #fff; }
+
+  /* Setlist-name row (sits on the page background, not the sheet). */
+  html[data-theme="dark"] .sl-name { background: #1b1b1f; border-color: #3a3a42; color: #ededea; }
+  html[data-theme="dark"] .sl-link { background: #1b1b1f; border-color: #3a3a42; color: #999; }
+  html[data-theme="dark"] .sl-link:hover { border-color: #ededea; color: #fff; }
+}
+
+@page { size: A4 portrait; margin: 0; }
+@media print {
+  .no-print { display: none !important; }
+  /* Constrain the document to exactly one physical A4 page. Using mm (not px) is what
+     makes iOS Safari map this to a single page instead of spilling to a blank second one. */
+  html, body {
+    background: #fff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    overflow: hidden !important;
+  }
+  .app-root { min-height: 0 !important; }
+  .sheet-scroll { display: block !important; padding: 0 !important; margin: 0 !important; overflow: hidden !important; }
+
+  /* One page-sized box; the (precomputed) --print-scale shrinks the 920px sheet to fit,
+     centered, with the overflow clipped so nothing bleeds onto a second page. */
+  .print-page {
+    width: 210mm !important;
+    height: 297mm !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    zoom: 1 !important;
+  }
+  .sheet {
+    width: 920px !important;
+    transform: scale(var(--print-scale, 1)) !important;
+    transform-origin: center center !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    border: none !important;
+  }
+}
