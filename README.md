@@ -89,3 +89,6 @@ lib/
   db.ts            Neon access (single JSONB document)
   auth.ts          password check + cookie token
 ```
+
+## License
+MIT — see [LICENSE](LICENSE).
