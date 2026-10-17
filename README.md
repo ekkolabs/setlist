@@ -10,6 +10,12 @@ A small web app for building, sharing and printing gig setlists.
 - **Export PDF** — rendered server-side with headless Chromium to a clean single A4 page.
 - Screen-only dark mode.
 
+| Public view | Editor |
+| --- | --- |
+| ![Public view: logo, songs with colour, BPM, duration and running time, the BPM curve, and date/venue footer](docs/public-view.png) | ![Editor: setlist toolbar, per-row drag/hide/duplicate/delete controls, and the colour menu](docs/editor.png) |
+
+<sub>Screenshots from [MXGPU](https://www.mxgpu.net/blog/setlist-mxgpu-net)'s deployment, with their logo set in `site.config.ts`.</sub>
+
 ## Customising
 
 Everything brand-related lives in **`site.config.ts`**:
