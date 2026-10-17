@@ -2,6 +2,9 @@
 
 A small web app for building, sharing and printing gig setlists.
 
+Built for and used by [MXGPU](https://www.mxgpu.net), the immersive 360° live show by
+Moullinex and GPU Panic, to build, share and print the set for every show.
+
 - **Public view** (`/`) — anyone can see the current setlist, read-only, and **Export PDF**.
 - **Per-setlist links** (`/<slug>`) — every setlist gets a human-readable URL.
 - **Edit** — behind a password. Click **EDIT**, enter the password, and the builder unlocks:
